@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Goals/Corners/Shots Explorer — 1 сезон, 3 метрики (+прогнозы)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .pills { display:flex; gap:8px; background:#0f1116; border:1px solid var(--line); border-radius:12px; padding:6px; }
+    .pill { appearance:none; background:transparent; color:#cfd3dc; border:1px solid transparent; padding:8px 12px; border-radius:10px; cursor:pointer; font-weight:600; }
+    .pill.active { background:#18202c; color:#e8e8ea; border-color:#2b3340; }
+    .pill.equal { min-width:64px; text-align:center; }
+    .pill.ha { min-width:84px; text-align:center; }
+    .season-navbar{ display:flex; align-items:center; justify-content:center; gap:12px;
+      background:#0f1116; border:1px solid var(--line); border-radius:12px; padding:8px 10px; margin:10px 0 6px; }
+    .arrow{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px;
+      border:1px solid var(--line); background:#101219; color:#e8e8ea; cursor:pointer; user-select:none; font-weight:600; }
+    .arrow:active{ transform: translateY(1px); }
+    .arrow[disabled]{ opacity:.45; cursor:not-allowed; }
+    .topbar{display:flex;justify-content:space-between;align-items:center;margin:6px 0 14px;}
+    .toplink{font-weight:600;color:#9ecbff;text-decoration:none;border:1px solid #253048;padding:6px 10px;border-radius:8px;}
+    .toplink:hover{background:#0f1623;}
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1"></script>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <h1 style="margin:0;">⚽📐 Explorer — один сезон, три графика + четыре прогноза</h1>
+      <a class="toplink" href="/how-it-works.html" target="_self">Как это работает?</a>
+    </div>
+
+    <div class="card">
+      <div class="grid6">
+        <div>
+          <label>Лига</label>
+          <select id="league"></select>
+        </div>
+        <div>
+          <label>Сезон</label>
+          <select id="season"></select>
+        </div>
+        <div>
+          <label>Команда 1</label>
+          <select id="team1"></select>
+        </div>
+        <div>
+          <label>Команда 2 (необязательно)</label>
+          <select id="team2"><option value="">— не выбрано —</option></select>
+        </div>
+        <div>
+          <button class="btn" id="showBtn" disabled>Показать</button>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:12px">
+        <div>
+          <label>Тип</label>
+          <div class="pills" id="typePills">
+            <button class="pill active" data-type="goals">Голы</button>
+            <button class="pill" data-type="corners">Угловые</button>
+            <button class="pill" data-type="cards">Карточки</button>
+            <button class="pill" data-type="shots">Удары</button>
+            <button class="pill" data-type="sot">В створ</button>
+          </div>
+        </div>
+
+        <div>
+          <label>Игры</label>
+          <div class="pills" id="haPills">
+            <button class="pill ha active" data-ha="all">Все</button>
+            <button class="pill ha" data-ha="home">Дом</button>
+            <button class="pill ha" data-ha="away">Выезд</button>
+          </div>
+        </div>
+
+        <div>
+          <label>Паттерн</label>
+          <div class="pills" id="patternPills">
+            <button class="pill active" data-k="2">2</button>
+            <button class="pill" data-k="3">3</button>
+          </div>
+        </div>
+
+        <div>
+          <label>Допуск похожести</label>
+          <div class="pills" id="tolerancePills">
+            <button class="pill equal active" data-tol="0">±0</button>
+            <button class="pill equal" data-tol="1">±1</button>
+          </div>
+        </div>
+
+        <div>
+          <label>Режим</label>
+          <div class="pills" id="modePills">
+            <button class="pill active" data-mode="totals">Тоталы</button>
+            <button class="pill" data-mode="handicap">Фора</button>
+          </div>
+        </div>
+
+        <div class="checks">
+          <label class="chk"><input type="checkbox" id="showTeam1" checked> <span>Показывать команду 1</span></label>
+          <label class="chk"><input type="checkbox" id="showTeam2" checked> <span>Показывать команду 2</span></label>
+          <label class="chk"><input type="checkbox" id="showMedian" checked> <span>Медиана</span></label>
+          <label class="chk"><input type="checkbox" id="showMean"> <span>Среднее (до 0.1)</span></label>
+          <label class="chk"><input type="checkbox" id="showForecast" checked> <span>▲ prog</span></label>
+          <label class="chk"><input type="checkbox" id="showKernel" checked> <span>◆ kprog</span></label>
+          <label class="chk"><input type="checkbox" id="showBayes" checked> <span>★ bprog</span></label>
+          <label class="chk"><input type="checkbox" id="showSuper" checked> <span>◈ sprog</span></label>
+          <span class="muted" id="status"></span>
+        </div>
+      </div>
+    </div>
+
+    <div id="seasonView"></div>
+  </div>
+
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

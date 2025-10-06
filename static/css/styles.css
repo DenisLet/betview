@@ -1,0 +1,60 @@
+:root { --bg:#0b0c10; --card:#15171c; --text:#e8e8ea; --muted:#a7acb6; --accent:#3fa2ff; --line:#2a2e36; }
+*{ box-sizing:border-box }
+body{ margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial; background:var(--bg); color:var(--text); }
+.wrap{ max-width:1200px; margin:0 auto; padding:18px; }
+.card{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px; box-shadow:0 4px 30px rgba(0,0,0,.15); }
+.grid6{ display:grid; gap:12px; grid-template-columns: 1fr 1fr 1fr 1fr auto; align-items:end; }
+label{ display:block; font-size:12px; color:var(--muted); margin-bottom:6px; }
+select{ width:100%; padding:10px 12px; border-radius:12px; border:1px solid var(--line); background:#0f1116; color:#fff; }
+.btn{ background:var(--accent); color:#000; border:0; padding:10px 14px; border-radius:12px; font-weight:600; cursor:pointer; }
+.btn[disabled]{ opacity:.5; cursor:not-allowed; }
+.muted{ color:var(--muted); font-size:12px; }
+.err{ color:#ff9a9a; }
+
+.row{ display:flex; gap:12px; flex-wrap:wrap; align-items:end; margin-top:10px; }
+
+/* pills */
+.pills { display:flex; gap:8px; background:#0f1116; border:1px solid var(--line); border-radius:12px; padding:6px; }
+.pill { appearance:none; background:transparent; color:#cfd3dc; border:1px solid transparent; padding:8px 12px; border-radius:10px; cursor:pointer; font-weight:600; }
+.pill.active { background:#18202c; color:#e8e8ea; border-color:#2b3340; }
+.pill:focus{ outline:none; }
+.pill.equal { min-width:64px; text-align:center; }
+.pill.ha { min-width:84px; text-align:center; }
+
+/* checks */
+.checks{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+.chk { display:inline-flex; align-items:center; gap:8px; cursor:pointer; background:#0f1116; border:1px solid var(--line); border-radius:12px; padding:6px 10px; user-select:none; }
+.chk input{ appearance:none; width:16px; height:16px; border-radius:4px; border:1px solid #3a3f48; background:#0b0c10; display:inline-block; position:relative; }
+.chk input:checked::after{ content:""; position:absolute; inset:3px; background:var(--accent); border-radius:3px; }
+
+/* season card */
+.season-card{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px; margin-top:14px; }
+.season-title{ font-weight:600; color:#eaeaea; font-size:18px; }
+
+/* navbar */
+.season-navbar{
+  display:flex; align-items:center; justify-content:center; gap:12px;
+  background:#0f1116; border:1px solid var(--line); border-radius:12px;
+  padding:8px 10px; margin:10px 0 6px;
+}
+.arrow{
+  display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px;
+  border:1px solid var(--line); background:#101219; color:#e8e8ea; cursor:pointer; user-select:none;
+  font-weight:600;
+}
+.arrow:active{ transform: translateY(1px); }
+.arrow[disabled]{ opacity:.45; cursor:not-allowed; }
+
+/* charts */
+.stack{ display:flex; flex-direction:column; gap:16px; }
+.chartbox{ background:#101219; border:1px solid var(--line); border-radius:12px; padding:12px; display:flex; flex-direction:column; gap:8px; }
+.charttitle{ font-size:14px; color:#cfd3dc; font-weight:600; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.meta{ font-weight:600; color:#d7dbea; opacity:.9 }
+.meta .tri { display:inline-block; width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-bottom:10px solid currentColor; transform: translateY(1px); margin-right:6px; }
+.meta .dia { display:inline-block; width:10px; height:10px; background:currentColor; transform: rotate(45deg); margin-right:6px; }
+.meta .star { margin-right:6px; filter: drop-shadow(0 0 1px #000); }
+
+.chartwrap{ height: 600px; }
+.chartwrap canvas{ width:100%; height:100%; display:block; }
+.infopanel{ background:#0f1116; border:1px dashed var(--line); border-radius:10px; padding:8px 10px; font-size:13px; color:#d6d9e0; white-space:pre-line; }
+.techline{ margin-top:6px; color:#aeb4bf; font-size:12px; display:flex; gap:14px; flex-wrap:wrap; }
