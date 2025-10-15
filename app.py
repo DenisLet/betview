@@ -128,6 +128,13 @@ app = FastAPI(title="Goals/Corners/Cards/Shots/SOT Explorer")
 from handicaps import router as handicaps_router
 app.include_router(handicaps_router)
 
+
+from h2h import router as h2h_router
+
+app.include_router(h2h_router)
+
+
+
 @app.get("/__routes")
 def __routes():
     return [r.path for r in app.router.routes]
